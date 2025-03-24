@@ -5,7 +5,7 @@ import time
 import threading
 import krpc
 
-# Mission parameters
+# Parameters
 turn_start_altitude = 250
 turn_end_altitude = 45000
 target_altitude = 150000
@@ -28,13 +28,13 @@ vessel.control.rcs = False
 vessel.control.throttle = 1.0
 
 # Countdown
-print('3...')
+print('3')
 time.sleep(1)
-print('2...')
+print('2')
 time.sleep(1)
-print('1...')
+print('1')
 time.sleep(1)
-print('Launch!')
+print('Launch command')
 
 # Activate the first stage
 vessel.control.activate_next_stage()
@@ -114,7 +114,7 @@ def mission_loop():
     conn.space_center.warp_to(burn_ut - lead_time)
 
     # Execute burn
-    print('Ready to execute burn')
+    print('Burn ready')
     time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
     while time_to_apoapsis() - (burn_time / 2.) > 0:
         pass
@@ -133,7 +133,7 @@ def mission_loop():
     vessel.control.throttle = 0.0
     node.remove()
 
-    print('Launch complete')
+    print('End of phase')
 
 # Start mission loop in a separate thread
 mission_thread = threading.Thread(target=mission_loop)
